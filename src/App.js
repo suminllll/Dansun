@@ -1,24 +1,4 @@
-import {
-  BrowserRouter,
-  Routes,
-  HashRouter,
-  Link,
-  MemoryRouter,
-  NavLink,
-  Prompt,
-  Redirect,
-  Route,
-  Router,
-  StaticRouter,
-  Switch,
-  generatePath,
-  matchPath,
-  useHistory,
-  useLocation,
-  useParams,
-  useRouteMatch,
-  withRouter,
-} from 'react-router-dom';
+import { BrowserRouter, Routes, Link, Route } from 'react-router-dom';
 import Login from './pages/Login/Login';
 import Main from './pages/Main/Main';
 
