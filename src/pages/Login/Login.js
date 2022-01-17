@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
-import { GoogleLogin } from 'react-google-login';
-import { KaKaoLogin } from 'react-kakao-login';
 
 const Login = () => {
   const [inputs, setInputs] = useState({
@@ -81,8 +79,8 @@ const Input = styled.input`
   border-radius: 3px;
   padding-left: 10px;
 `;
-
 //----------
+
 const Main = styled.main`
   display: flex;
   justify-content: center;
@@ -93,7 +91,7 @@ const Main = styled.main`
 
 const LoginBox = styled.div`
   width: 50vw;
-  height: 70vw;
+  height: 60vw;
   border: 1px solid lightgray;
 `;
 
@@ -121,7 +119,7 @@ const LoginButton = styled.button`
   width: 84%;
   height: 50px;
   margin-top: 10px;
-  margin-bottom: 250px;
+  margin-bottom: 150px;
   background-color: rgb(0, 149, 246);
   color: white;
   border-radius: 6px;
