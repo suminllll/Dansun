@@ -1,20 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
+import { GoogleLogin } from 'react-google-login';
+import { KaKaoLogin } from 'react-kakao-login';
 
 const Login = () => {
   const [inputs, setInputs] = useState({
     idValue: '',
     pwValue: '',
   });
-
-  const [buttonOn, setButtonOn] = useState('false');
-
   const { idValue, pwValue } = inputs;
+  const [buttonOn, setButtonOn] = useState(false);
+  const navigate = useNavigate();
 
   const goToMain = () => {
-    // const navigate = useNavigate();
-    // navigate('/');
+    fetch('http://localhost:3000/data/loginData.json', {})
+      .then(res => res.json())
+      .then(data => {
+        if (data.email === idValue && data.pw === pwValue) {
+          navigate('/');
+        } else {
+          alert('아이디 또는 비밀번호를 확인하세요.');
+        }
+      });
   };
 
   const handleInput = e => {
@@ -24,16 +32,15 @@ const Login = () => {
       ...inputs,
       [name]: value,
     });
-
-    console.log(idValue);
   };
 
-  const buttonChange = () => {
-    console.log(idValue, pwValue);
+  const buttonChange = e => {
     setButtonOn(
       idValue.indexOf('@') !== -1 && idValue.length >= 5 && pwValue.length >= 5
     );
-    console.log(buttonOn);
+    if (e.key === 'Enter') {
+      goToMain();
+    }
   };
 
   return (
@@ -56,6 +63,7 @@ const Login = () => {
           <LoginButton onClick={goToMain} buttonOn={buttonOn}>
             로그인
           </LoginButton>
+          {/* <Kakao onClick={kakaoLogin} /> */}
         </MiddleBox>
         <FindPw to="/">비밀번호를 잊으셨나요?</FindPw>
       </LoginBox>
@@ -111,16 +119,26 @@ const InputPw = styled(Input).attrs({
 
 const LoginButton = styled.button`
   width: 84%;
-  height: 45px;
+  height: 50px;
   margin-top: 10px;
-  background-color: #0095f6;
+  margin-bottom: 250px;
+  background-color: rgb(0, 149, 246);
   color: white;
-  margin-bottom: 170px;
   border-radius: 6px;
   border: 0;
   cursor: grab;
+  letter-spacing: 1px;
   opacity: ${inputs => (inputs.buttonOn ? '1' : '0.5')};
 `;
+
+// const Kakao = styled.img.attrs({
+//   src: '/images/kakao.png',
+//   alt: 'kakaoLoginButton',
+// })`
+//   width: 84%;
+//   height: 49px;
+//   margin-bottom: 20px;
+// `;
 
 const FindPw = styled(Link)`
   font-size: 12px;
