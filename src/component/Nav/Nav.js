@@ -1,95 +1,62 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { BsHouseDoor } from 'react-icons/bs';
-import { FiSearch } from 'react-icons/fi';
 
 const Nav = () => {
   return (
-    <NavBox>
-      <>
-        <LogoTitle>Instagram</LogoTitle>
-      </>
-      <SearchBox>
-        <FiSearch className="fisearch" />
-        <Search>검색</Search>
-      </SearchBox>
-      {/* <SearchInput /> */}
-      <div className="topIcon">
-        <Link to="/">
-          <BsHouseDoor />
-          <i className="far fa-compass icon" />
-        </Link>
-        <Link to="/">
-          <i className="far fa-heart icon" />
-        </Link>
-        <Link to="/">
-          <i className="far fa-user icon" />
-        </Link>
-        <Link to="/">
-          <img
-            className="myPage"
-            alt="myPage"
-            src="/images/suminKim/오구.png"
-          />
-        </Link>
-      </div>
-    </NavBox>
+    <>
+      <NavBox>
+        <>
+          <LogoTitle to="/">Design DanSun</LogoTitle>
+        </>
+        <RightBox>
+          <About to="">ABOUT US</About>
+          <Project to="">PROJECT</Project>
+          <Contact to="">CONTACT</Contact>
+          <Qna to="">QnA</Qna>
+        </RightBox>
+      </NavBox>
+    </>
   );
 };
+
+//재사용
+
+const Category = styled(Link)`
+  margin-right: 40px;
+  color: white;
+  text-decoration: none;
+  letter-spacing: 1.5px;
+`;
+
+//--------
 
 const NavBox = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 60px;
-  border-bottom: 1px solid lightgray;
+  position: fixed;
+  height: 70px;
+  width: 100%;
+  /* background-color: rgba(40, 40, 40, 0.4); */
 `;
 
-const LogoTitle = styled.span`
+const LogoTitle = styled(Link)`
   padding-left: 20px;
-  font-size: 25px;
-  font-family: 'Lobster', cursive;
+  font-size: 30px;
+  color: white;
+  font-family: 'Dancing Script', cursive;
+  text-decoration: none;
 `;
 
-const SearchBox = styled.div`
-  display: flex;
-  align-items: center;
-  width: 230px;
-  height: 32px;
-  background-color: #efefef;
-  border-radius: 5px;
-  /* border-style: none; */
-  color: #8e8e8e;
-  font-weight: lighter;
-  cursor: text;
+const RightBox = styled.div``;
 
-  .fisearch {
-    margin: 0 10px;
-    color: #8e8e8e;
-    font-size: 18px;
-  }
-`;
+const About = styled(Category)``;
 
-const Search = styled.div`
-  width: 200px;
-  margin-top: 4px;
-  color: #8e8e8e;
-  font-weight: lighter;
-`;
+const Project = styled(Category)``;
 
-const SearchInput = styled.input.attrs({
-  type: 'text',
-  placeholder: '검색',
-})`
-  margin-top: 4px;
-  border-style: none;
-  background-color: #efefef;
+const Contact = styled(Category)``;
 
-  &::placeholder {
-    color: #c1c1c4;
-    font-weight: lighter;
-  }
-`;
+const Qna = styled(Category)``;
 
 export default Nav;
