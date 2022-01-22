@@ -1,43 +1,34 @@
 [
   {
     "id": 1,
-    "to": "/bath",
-    "alt": "bath",
     "src": "/images/bathMain.jpg",
     "text": "Bath"
   },
   {
     "id": 2,
-    "to": "/living",
-    "alt": "living",
     "src": "/images/livingMain.jpg",
     "text": "Living"
   },
+
   {
     "id": 3,
-    "to": "/kitchen",
-    "alt": "kitchen",
     "src": "/images/kitchenMain.jpg",
     "text": "Kitchen"
   },
+
   {
     "id": 4,
-    "to": "/dining",
-    "alt": "dining",
     "src": "/images/diningMain.jpg",
     "text": "Dining"
   },
+
   {
     "id": 5,
-    "to": "/bed",
-    "alt": "bed",
     "src": "/images/bedMain.jpg",
     "text": "Bed Room"
   },
   {
     "id": 6,
-    "to": "/dress",
-    "alt": "dress",
     "src": "/images/dressMain.jpg",
     "text": "Dress Room"
   }
