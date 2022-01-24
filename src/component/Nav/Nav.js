@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const Nav = () => {
+const Nav = ({ moveScroll }) => {
+  const handleMove = () => {
+    moveScroll.current.scrollIntoView({ behavior: 'smooth' });
+  };
   return (
     <>
       <NavBox>
@@ -11,7 +14,9 @@ const Nav = () => {
         </>
         <RightBox>
           <About to="">ABOUT US</About>
-          <Project to="">PROJECT</Project>
+          <Project to="" onClick={handleMove}>
+            PROJECT
+          </Project>
           <Contact to="">CONTACT</Contact>
           <Qna to="">QnA</Qna>
         </RightBox>
@@ -53,7 +58,12 @@ const RightBox = styled.div``;
 
 const About = styled(Category)``;
 
-const Project = styled(Category)``;
+const Project = styled.button`
+  margin-right: 40px;
+  color: white;
+  text-decoration: none;
+  letter-spacing: 1.5px;
+`;
 
 const Contact = styled(Category)``;
 

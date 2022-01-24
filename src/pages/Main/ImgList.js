@@ -94,6 +94,7 @@ const ImgContainer = styled.div`
 const Bath = styled(ImgWrap)`
   width: 40vw;
   height: 130vh;
+  margin-top: -10%;
 
   @media (max-width: 1166px) {
     width: 80vw;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Nav from '../../component/Nav/Nav';
@@ -14,22 +14,22 @@ const Main = () => {
   //       setData(data);
   //     });
   // }, []);
-
+  const moveScroll = useRef(null);
   return (
     <Article>
       <Nav />
       {/* ------- */}
       <Explain>
         <TextBox>
-          하나의 선으로 시작해,
+          단 하나의 선으로 시작해,
           <br />
           의미있는 공간을 만듭니다.
           <br />- 단선 인테리어
         </TextBox>
       </Explain>
       {/* ----- */}
-      <ProjectMain>
-        <ProjectTitle>Our Project</ProjectTitle>
+      <ProjectMain className="project">
+        <ProjectTitle ref={moveScroll}>Project</ProjectTitle>
         <ImgList />
       </ProjectMain>
       {/* ------ */}
@@ -61,6 +61,7 @@ const TextBox = styled.div`
 `;
 
 const ProjectMain = styled.div`
+  margin-top: 10%;
   background-color: white;
 `;
 
