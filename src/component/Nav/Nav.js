@@ -3,20 +3,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const Nav = props => {
-  // const aa = React.createRef((props, ref) => {
-  //   return <ProjectTitle ref={ref}>Project</ProjectTitle>;
-  // });
-  // function forwardRef(props, ref) {
-  //   return <ProjectTitle forwardRef={ref}>Project</ProjectTitle>;
-  // }
-  // const ref = React.createRef();
-
-  // const handleMove = () => {
-  //   console.log(ref.current);
-  //   ref.current.scrollIntoView({ behavior: 'smooth' });
-  //   // ref.current.scrollTo();
-  // };
-
   const handleMove = () => {
     props.move();
   };

@@ -5,13 +5,6 @@ import Nav from '../../component/Nav/Nav';
 import ImgList from './ImgList';
 
 const Main = () => {
-  // useEffect(() => {
-  //   fetch('http://localhost:3001/data/mainData.json')
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       setData(data);
-  //     });
-  // }, []);
   const ref = useRef();
 
   const move = () => {
