@@ -1,10 +1,24 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const Nav = ({ moveScroll }) => {
+const Nav = props => {
+  // const aa = React.createRef((props, ref) => {
+  //   return <ProjectTitle ref={ref}>Project</ProjectTitle>;
+  // });
+  // function forwardRef(props, ref) {
+  //   return <ProjectTitle forwardRef={ref}>Project</ProjectTitle>;
+  // }
+  // const ref = React.createRef();
+
+  // const handleMove = () => {
+  //   console.log(ref.current);
+  //   ref.current.scrollIntoView({ behavior: 'smooth' });
+  //   // ref.current.scrollTo();
+  // };
+
   const handleMove = () => {
-    moveScroll.current.scrollIntoView({ behavior: 'smooth' });
+    props.move();
   };
   return (
     <>
@@ -13,12 +27,10 @@ const Nav = ({ moveScroll }) => {
           <LogoTitle to="/">Design DanSun</LogoTitle>
         </>
         <RightBox>
-          <About to="">ABOUT US</About>
-          <Project to="" onClick={handleMove}>
-            PROJECT
-          </Project>
-          <Contact to="">CONTACT</Contact>
-          <Qna to="">QnA</Qna>
+          <About>ABOUT US</About>
+          <Project onClick={handleMove}>PROJECT</Project>
+          <Contact>CONTACT</Contact>
+          <Qna>QnA</Qna>
         </RightBox>
       </NavBox>
     </>
@@ -27,11 +39,13 @@ const Nav = ({ moveScroll }) => {
 
 //재사용
 
-const Category = styled(Link)`
+const Category = styled.button`
   margin-right: 40px;
   color: white;
   text-decoration: none;
   letter-spacing: 1.5px;
+  border-style: none;
+  background-color: inherit;
 `;
 
 //--------
@@ -58,12 +72,7 @@ const RightBox = styled.div``;
 
 const About = styled(Category)``;
 
-const Project = styled.button`
-  margin-right: 40px;
-  color: white;
-  text-decoration: none;
-  letter-spacing: 1.5px;
-`;
+const Project = styled(Category)``;
 
 const Contact = styled(Category)``;
 

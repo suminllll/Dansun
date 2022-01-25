@@ -1,12 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Nav from '../../component/Nav/Nav';
 import ImgList from './ImgList';
 
 const Main = () => {
-  // const [data, setData] = useState([]);
-
   // useEffect(() => {
   //   fetch('http://localhost:3001/data/mainData.json')
   //     .then(res => res.json())
@@ -14,11 +12,15 @@ const Main = () => {
   //       setData(data);
   //     });
   // }, []);
-  const moveScroll = useRef(null);
+  const ref = useRef();
+
+  const move = () => {
+    ref.current.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <Article>
-      <Nav />
-      {/* ------- */}
+      <Nav move={move} />
       <Explain>
         <TextBox>
           단 하나의 선으로 시작해,
@@ -27,12 +29,10 @@ const Main = () => {
           <br />- 단선 인테리어
         </TextBox>
       </Explain>
-      {/* ----- */}
-      <ProjectMain className="project">
-        <ProjectTitle ref={moveScroll}>Project</ProjectTitle>
+      <ProjectMain>
+        <ProjectTitle ref={ref}>Project</ProjectTitle>
         <ImgList />
       </ProjectMain>
-      {/* ------ */}
     </Article>
   );
 };
