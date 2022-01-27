@@ -1,14 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const Nav = props => {
+  const [scrollY, setScrollY] = useState(0);
+
   const handleMove = () => {
     props.move();
   };
+
+  const handleScroll = () => {
+    setScrollY(window.pageYOffset);
+    if (scrollY > 600) {
+      setScrollY(1);
+    }
+  };
+
+  useEffect(() => {
+    const watch = () => {
+      window.addEventListener('scroll', handleScroll);
+    };
+    watch();
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  });
+
   return (
     <>
-      <NavBox>
+      <NavBox show={scrollY}>
         <>
           <LogoTitle to="/">Design DanSun</LogoTitle>
         </>
@@ -43,7 +63,10 @@ const NavBox = styled.nav`
   position: fixed;
   height: 70px;
   width: 100%;
-  /* background-color: rgba(40, 40, 40, 0.4); */
+
+  ${({ show }) => {
+    return show === 1 ? 'background-color: #003300' : '';
+  }}
 `;
 
 const LogoTitle = styled(Link)`
