@@ -4,25 +4,41 @@ import { Link } from 'react-router-dom';
 
 const Nav = props => {
   const [scrollY, setScrollY] = useState(0);
+  const scrollTrue = scrollY > 600;
 
   const handleMove = () => {
     props.move();
   };
 
+  //const handleScroll = () => {
+  // setScrollY(window.pageYOffset);
+  // if (scrollTrue) {
+  //   setScrollY(1);
+  // }
+  //};
   const handleScroll = () => {
     setScrollY(window.pageYOffset);
-    if (scrollY > 600) {
+    if (scrollTrue) {
       setScrollY(1);
     }
   };
-
   useEffect(() => {
+    // window.scroll(function () {
+    //   if (scrollTrue) {
+    //     window.addEventListener('scroll', handleScroll);
+    //   } else {
+    //     window.removeEventListener('scroll', handleScroll);
+    //   }
+    // });
     const watch = () => {
       window.addEventListener('scroll', handleScroll);
+      console.log('add');
     };
     watch();
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      console.log('remove');
     };
   });
 
@@ -63,6 +79,7 @@ const NavBox = styled.nav`
   position: fixed;
   height: 70px;
   width: 100%;
+  z-index: 9900;
 
   ${({ show }) => {
     return show === 1 ? 'background-color: #003300' : '';
