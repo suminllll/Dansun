@@ -4,47 +4,29 @@ import { Link } from 'react-router-dom';
 
 const Nav = props => {
   const [scrollY, setScrollY] = useState(0);
-  const scrollTrue = scrollY > 600;
 
   const handleMove = () => {
     props.move();
   };
 
-  //const handleScroll = () => {
-  // setScrollY(window.pageYOffset);
-  // if (scrollTrue) {
-  //   setScrollY(1);
-  // }
-  //};
   const handleScroll = () => {
     setScrollY(window.pageYOffset);
-    if (scrollTrue) {
-      setScrollY(1);
-    }
   };
+
   useEffect(() => {
-    // window.scroll(function () {
-    //   if (scrollTrue) {
-    //     window.addEventListener('scroll', handleScroll);
-    //   } else {
-    //     window.removeEventListener('scroll', handleScroll);
-    //   }
-    // });
     const watch = () => {
       window.addEventListener('scroll', handleScroll);
-      console.log('add');
     };
     watch();
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      console.log('remove');
     };
   });
 
   return (
     <>
-      <NavBox show={scrollY}>
+      <NavBox scrollY={scrollY}>
         <>
           <LogoTitle to="/">Design DanSun</LogoTitle>
         </>
@@ -79,10 +61,13 @@ const NavBox = styled.nav`
   position: fixed;
   height: 70px;
   width: 100%;
-  z-index: 9900;
+  z-index: 1;
+  transition: 0.5s ease;
 
-  ${({ show }) => {
-    return show === 1 ? 'background-color: #003300' : '';
+  ${({ scrollY }) => {
+    return scrollY > 690
+      ? 'background-color: #003300'
+      : 'background-color: transparent';
   }}
 `;
 
