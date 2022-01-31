@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Project = () => {
+const Design = () => {
   return (
     <>
       <ImgBox>
@@ -166,7 +166,7 @@ const Text = styled.div`
   font-family: 'PT Serif', serif;
 `;
 
-export default Project;
+export default Design;
 
 const imgList = [
   {

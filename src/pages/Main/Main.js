@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Nav from '../../component/Nav/Nav';
-import Project from './Project';
+import Design from './Design';
 import Contact from './Contact';
 
 const Main = () => {
@@ -24,8 +24,8 @@ const Main = () => {
         </TextBox>
       </Explain>
       <ProjectMain>
-        <ProjectTitle ref={ref}>PROJECT</ProjectTitle>
-        <Project />
+        <ProjectTitle ref={ref}>DESIGN</ProjectTitle>
+        <Design />
         <Contact />
       </ProjectMain>
     </Article>

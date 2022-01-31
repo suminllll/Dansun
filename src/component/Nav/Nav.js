@@ -36,7 +36,7 @@ const Nav = props => {
         </>
         <RightBox>
           <About onClick={handleAbout}>ABOUT US</About>
-          <Project onClick={handleProject}>PROJECT</Project>
+          <Design onClick={handleProject}>DESIGN</Design>
           <Contact>CONTACT</Contact>
           <Qna>QnA</Qna>
         </RightBox>
@@ -87,7 +87,7 @@ const RightBox = styled.div``;
 
 const About = styled(Category)``;
 
-const Project = styled(Category)``;
+const Design = styled(Category)``;
 
 const Contact = styled(Category)``;
 
