@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const ImgList = () => {
+const Project = () => {
   return (
     <>
       <ImgBox>
@@ -153,7 +153,6 @@ const Img = styled.img`
   transition: all 0.1s linear;
 
   :hover {
-    /* easingEasing Zoom */
     transform: scale(1.15);
   }
 `;
@@ -167,7 +166,7 @@ const Text = styled.div`
   font-family: 'PT Serif', serif;
 `;
 
-export default ImgList;
+export default Project;
 
 const imgList = [
   {

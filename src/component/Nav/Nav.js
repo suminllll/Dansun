@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Nav = props => {
   const [scrollY, setScrollY] = useState(0);
 
-  const handleMove = () => {
+  const handleProject = () => {
     props.move();
   };
 
@@ -24,6 +24,10 @@ const Nav = props => {
     };
   });
 
+  const handleAbout = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  };
+
   return (
     <>
       <NavBox scrollY={scrollY}>
@@ -31,8 +35,8 @@ const Nav = props => {
           <LogoTitle to="/">Design DanSun</LogoTitle>
         </>
         <RightBox>
-          <About>ABOUT US</About>
-          <Project onClick={handleMove}>PROJECT</Project>
+          <About onClick={handleAbout}>ABOUT US</About>
+          <Project onClick={handleProject}>PROJECT</Project>
           <Contact>CONTACT</Contact>
           <Qna>QnA</Qna>
         </RightBox>

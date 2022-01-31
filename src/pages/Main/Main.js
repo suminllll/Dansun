@@ -2,7 +2,8 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Nav from '../../component/Nav/Nav';
-import ImgList from './ImgList';
+import Project from './Project';
+import Contact from './Contact';
 
 const Main = () => {
   const ref = useRef();
@@ -23,8 +24,9 @@ const Main = () => {
         </TextBox>
       </Explain>
       <ProjectMain>
-        <ProjectTitle ref={ref}>Project</ProjectTitle>
-        <ImgList />
+        <ProjectTitle ref={ref}>PROJECT</ProjectTitle>
+        <Project />
+        <Contact />
       </ProjectMain>
     </Article>
   );
