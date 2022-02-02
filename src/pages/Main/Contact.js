@@ -1,8 +1,31 @@
+/* global kakao */
 import { getDefaultNormalizer } from '@testing-library/dom';
-import React from 'react';
+import React, { useEffect } from 'react';
+import KakaoLogin from 'react-kakao-login';
 import styled from 'styled-components';
 
+const { kakao } = window;
+
 const Contact = () => {
+  useEffect(() => {
+    const container = document.getElementById('map');
+    const options = {
+      center: new kakao.maps.LatLng(36.051641499339475, 129.371858321261), //지도의 중심좌표.
+      level: 3, //지도의 레벨(확대, 축소 정도)
+    };
+    //지도 생성
+    const map = new kakao.maps.Map(container, options);
+
+    const markerPosition = new kakao.maps.LatLng(
+      36.051641499339475,
+      129.371858321261
+    );
+    const marker = new kakao.maps.Marker({
+      position: markerPosition,
+    });
+    marker.setMap(map);
+  }, []);
+
   return (
     <Article>
       <ContactTitle>CONTACT</ContactTitle>
@@ -11,12 +34,14 @@ const Contact = () => {
         return (
           <TextBox>
             <div className="textTitle" key={list.id}>
-              {list.title}
+              [{list.title}]
             </div>
             <div className="text">{list.text}</div>
           </TextBox>
         );
       })}
+
+      <Map id="map"></Map>
     </Article>
   );
 };
@@ -44,6 +69,11 @@ const TextBox = styled.div`
   }
 `;
 
+const Map = styled.div`
+  margin-left: 10%;
+  width: 80%;
+  height: 80%;
+`;
 export default Contact;
 
 const textList = [
