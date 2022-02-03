@@ -65,7 +65,7 @@ const NavBox = styled.nav`
   position: fixed;
   height: 70px;
   width: 100%;
-  z-index: 1;
+  z-index: 990;
   transition: 0.5s ease;
 
   ${({ scrollY }) => {
