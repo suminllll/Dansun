@@ -2,13 +2,10 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const Nav = props => {
+const Nav = ({ scrollTo }) => {
   const [scrollY, setScrollY] = useState(0);
 
-  const handleProject = () => {
-    props.move();
-  };
-
+  //nav 색깔 바꾸는 로직
   const handleScroll = () => {
     setScrollY(window.pageYOffset);
   };
@@ -24,6 +21,7 @@ const Nav = props => {
     };
   });
 
+  //클릭시 맨 위로 이동
   const handleAbout = () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   };
@@ -36,9 +34,15 @@ const Nav = props => {
         </>
         <RightBox>
           <About onClick={handleAbout}>ABOUT US</About>
-          <Design onClick={handleProject}>DESIGN</Design>
-          <Contact>CONTACT</Contact>
-          <Qna>QnA</Qna>
+          <Design name="design" onClick={scrollTo}>
+            DESIGN
+          </Design>
+          <Contact name="contact" onClick={scrollTo}>
+            CONTACT
+          </Contact>
+          <Qna name="qna" onClick={scrollTo}>
+            QnA
+          </Qna>
         </RightBox>
       </NavBox>
     </>

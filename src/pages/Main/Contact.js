@@ -1,3 +1,4 @@
+import { number } from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
@@ -11,6 +12,15 @@ const Contact = () => {
   });
 
   const { nameValue, numberValue, contentValue } = values;
+
+  const handleNumber = e => {
+    const { value, name } = e.target;
+
+    setValues({
+      ...values,
+      [name]: value,
+    });
+  };
 
   //지도
   useEffect(() => {
@@ -33,55 +43,35 @@ const Contact = () => {
   }, []);
 
   //핸드폰 번호
-  // useEffect(() => {
-  //   if (values.length === 10) {
-  //     setValues(values.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'));
-  //   }
-  //   if (values.length === 13) {
-  //     setValues(
-  //       values.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
-  //     );
-  //   }
-  // }, [values]);
+  //   useEffect(() => {
+  //     if (numberValue.length === 10) {
+  //       setValues(numberValue.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'));
+  // }
+  // if (numberValue.length === 13) {
+  //   setValues(
+  //     numberValue
+  //       .replace(/-/g, '')
+  //       .replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
+  //   );
+  //     }
+  //   });
 
-  const handleNumber = e => {
-    const { value, name } = e.target;
+  const changeNumber = () => {
     const regex = /^[0-9\b -]{0,13}$/;
-
-    if (name === 'Phone Number') {
-      //   setValues({
-      //     ...values,
-      //     [name]: value,
-      //   });
-
-      //test() 메서드는 주어진 문자열이 정규 표현식을 만족하는지 판별하고,
-      //그 여부를 true 또는 false로 반환
-      //숫자와 하이픈만, 길이는 13자 까지 허용
-      //   if (regex.test(value)) {
-      //     console.log(value);
-      if (value.length === 10) {
-        console.log(value.length);
-        setValues({
-          ...values,
-          [name]: value.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'),
-        });
-        console.log(setValues);
-        console.log('2', value.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'));
-      }
-      if (value.length === 13) {
-        console.log('3', value);
-        setValues(
-          value.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
-        );
-      }
-      //   }
+    if (numberValue.length === 10) {
+      return numberValue.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+      //console.log(numberValue);
+      //if (regex.test(numberValue)) {
+      //console.log(numberValue);
+      // setValues(numberValue.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'));
     }
   };
+  //test() 메서드는 주어진 문자열이 정규 표현식을 만족하는지 판별하고,
+  //그 여부를 true 또는 false로 반환
+  //숫자와 하이픈만, 길이는 13자 까지 허용
 
   return (
-    <Article>
-      <ContactTitle>CONTACT</ContactTitle>
-
+    <>
       {TEXTLIST.map(list => {
         return (
           <TextBox key={list.id}>
@@ -94,32 +84,36 @@ const Contact = () => {
       <Map id="map"></Map>
 
       <ContentWrap>
-        {INPUTTITLE.map(list => {
-          return (
-            <ContentBox key={list.id}>
-              <div>{list.title}</div>
-              <ContentInput name={list.title} onKeyUp={handleNumber} />
-            </ContentBox>
-          );
-        })}
+        <ContentBox>
+          <div>Name</div>
+          <ContentInput
+            name="nameValue"
+            value={nameValue}
+            onChange={handleNumber}
+          />
+        </ContentBox>
+        <ContentBox>
+          <div>Phone Number</div>
+          <ContentInput
+            name="numberValue"
+            value={numberValue}
+            onChange={handleNumber}
+            onKeyUp={changeNumber}
+          />
+        </ContentBox>
+        <ContentBox>
+          <div>Content</div>
+          <ContentInput
+            name="contentValue"
+            value={contentValue}
+            onChange={handleNumber}
+          />
+        </ContentBox>
         <Submit>Send</Submit>
       </ContentWrap>
-    </Article>
+    </>
   );
 };
-
-const Article = styled.article`
-  height: 100vh;
-`;
-
-const ContactTitle = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: -15%;
-  color: #003300;
-  font-size: 50px;
-`;
 
 const TextBox = styled.div`
   margin: 4%;
@@ -133,8 +127,8 @@ const TextBox = styled.div`
 
 const Map = styled.div`
   margin-left: 10%;
-  width: 80%;
-  height: 80%;
+  width: 80vw;
+  height: 80vh;
 `;
 
 const ContentWrap = styled.form.attrs({
@@ -188,17 +182,17 @@ const TEXTLIST = [
   },
 ];
 
-const INPUTTITLE = [
-  {
-    id: 1,
-    title: 'Name',
-  },
-  {
-    id: 2,
-    title: 'Phone Number',
-  },
-  {
-    id: 3,
-    title: 'Content',
-  },
-];
+// const INPUTTITLE = [
+//   {
+//     id: 1,
+//     title: 'Name',
+//   },
+//   {
+//     id: 2,
+//     title: 'Phone Number',
+//   },
+//   {
+//     id: 3,
+//     title: 'Content',
+//   },
+// ];
