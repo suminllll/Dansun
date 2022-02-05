@@ -1,4 +1,3 @@
-import { number } from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
@@ -43,32 +42,21 @@ const Contact = () => {
   }, []);
 
   //핸드폰 번호
-  //   useEffect(() => {
-  //     if (numberValue.length === 10) {
-  //       setValues(numberValue.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'));
-  // }
-  // if (numberValue.length === 13) {
-  //   setValues(
-  //     numberValue
-  //       .replace(/-/g, '')
-  //       .replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
-  //   );
-  //     }
-  //   });
-
-  const changeNumber = () => {
-    const regex = /^[0-9\b -]{0,13}$/;
-    if (numberValue.length === 10) {
-      return numberValue.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
-      //console.log(numberValue);
-      //if (regex.test(numberValue)) {
-      //console.log(numberValue);
-      // setValues(numberValue.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'));
+  useEffect(() => {
+    if (numberValue.length === 11) {
+      console.log(numberValue.length);
+      setValues({
+        numberValue: numberValue.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'),
+      });
     }
-  };
-  //test() 메서드는 주어진 문자열이 정규 표현식을 만족하는지 판별하고,
-  //그 여부를 true 또는 false로 반환
-  //숫자와 하이픈만, 길이는 13자 까지 허용
+    // } else if (numberValue.length === 13) {
+    //   setValues({
+    //     numberValue: numberValue
+    //       .replace(/-/g, '')
+    //       .replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'),
+    //   });
+    // }
+  });
 
   return (
     <>
@@ -84,31 +72,30 @@ const Contact = () => {
       <Map id="map"></Map>
 
       <ContentWrap>
-        <ContentBox>
-          <div>Name</div>
-          <ContentInput
-            name="nameValue"
-            value={nameValue}
-            onChange={handleNumber}
-          />
-        </ContentBox>
-        <ContentBox>
+        {INPUTTITLE.map(list => {
+          return (
+            <ContentBox key={list.id}>
+              <div>{list.title}</div>
+              <ContentInput name={list.name} onChange={handleNumber} />
+            </ContentBox>
+          );
+        })}
+        {/* <ContentBox>
           <div>Phone Number</div>
           <ContentInput
             name="numberValue"
-            value={numberValue}
+            value={numberValue || ''}
             onChange={handleNumber}
-            onKeyUp={changeNumber}
           />
         </ContentBox>
         <ContentBox>
           <div>Content</div>
           <ContentInput
             name="contentValue"
-            value={contentValue}
+            value={contentValue || ''}
             onChange={handleNumber}
           />
-        </ContentBox>
+        </ContentBox> */}
         <Submit>Send</Submit>
       </ContentWrap>
     </>
@@ -182,17 +169,20 @@ const TEXTLIST = [
   },
 ];
 
-// const INPUTTITLE = [
-//   {
-//     id: 1,
-//     title: 'Name',
-//   },
-//   {
-//     id: 2,
-//     title: 'Phone Number',
-//   },
-//   {
-//     id: 3,
-//     title: 'Content',
-//   },
-// ];
+const INPUTTITLE = [
+  {
+    id: 1,
+    title: 'Name',
+    name: 'nameValue',
+  },
+  {
+    id: 2,
+    title: 'Phone Number',
+    name: 'numberValue',
+  },
+  {
+    id: 3,
+    title: 'Content',
+    name: 'contentValue',
+  },
+];
