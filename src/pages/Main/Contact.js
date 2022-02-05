@@ -44,19 +44,17 @@ const Contact = () => {
   //핸드폰 번호
   useEffect(() => {
     if (numberValue.length === 11) {
-      console.log(numberValue.length);
       setValues({
         numberValue: numberValue.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'),
       });
+    } else if (numberValue.length === 13) {
+      setValues({
+        numberValue: numberValue
+          .replace(/-/g, '')
+          .replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'),
+      });
     }
-    // } else if (numberValue.length === 13) {
-    //   setValues({
-    //     numberValue: numberValue
-    //       .replace(/-/g, '')
-    //       .replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'),
-    //   });
-    // }
-  });
+  }, [numberValue]);
 
   return (
     <>
@@ -72,15 +70,15 @@ const Contact = () => {
       <Map id="map"></Map>
 
       <ContentWrap>
-        {INPUTTITLE.map(list => {
-          return (
-            <ContentBox key={list.id}>
-              <div>{list.title}</div>
-              <ContentInput name={list.name} onChange={handleNumber} />
-            </ContentBox>
-          );
-        })}
-        {/* <ContentBox>
+        <ContentBox>
+          <div>Name</div>
+          <ContentInput
+            name="nameValue"
+            value={nameValue || ''}
+            onChange={handleNumber}
+          />
+        </ContentBox>
+        <ContentBox>
           <div>Phone Number</div>
           <ContentInput
             name="numberValue"
@@ -95,7 +93,7 @@ const Contact = () => {
             value={contentValue || ''}
             onChange={handleNumber}
           />
-        </ContentBox> */}
+        </ContentBox>
         <Submit>Send</Submit>
       </ContentWrap>
     </>
