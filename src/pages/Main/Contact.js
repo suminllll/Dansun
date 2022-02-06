@@ -56,6 +56,11 @@ const Contact = () => {
     }
   }, [numberValue]);
 
+  const handleSend = e => {
+    alert('전송 되었습니다.');
+    //e.preventDefault();
+  };
+
   return (
     <>
       {TEXTLIST.map(list => {
@@ -94,7 +99,7 @@ const Contact = () => {
             onChange={handleNumber}
           />
         </ContentBox>
-        <Submit>Send</Submit>
+        <Submit onClick={handleSend}>Send</Submit>
       </ContentWrap>
     </>
   );
@@ -117,9 +122,10 @@ const Map = styled.div`
 `;
 
 const ContentWrap = styled.form.attrs({
-  name: 'form',
+  id: 'id',
+  name: '',
   method: 'post',
-  action: '',
+  action: '../../../public/data/mainData.json',
 })`
   margin: 5%;
   padding-bottom: 5%;

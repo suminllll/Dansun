@@ -1,35 +1,8 @@
 [
   {
-    "id": 1,
-    "src": "/images/bathMain.jpg",
-    "text": "Bath"
-  },
-  {
-    "id": 2,
-    "src": "/images/livingMain.jpg",
-    "text": "Living"
-  },
-
-  {
-    "id": 3,
-    "src": "/images/kitchenMain.jpg",
-    "text": "Kitchen"
-  },
-
-  {
-    "id": 4,
-    "src": "/images/diningMain.jpg",
-    "text": "Dining"
-  },
-
-  {
-    "id": 5,
-    "src": "/images/bedMain.jpg",
-    "text": "Bed Room"
-  },
-  {
-    "id": 6,
-    "src": "/images/dressMain.jpg",
-    "text": "Dress Room"
+    "id": 0,
+    "nameValue": "",
+    "numberValue": "",
+    "contentValue": ""
   }
 ]
