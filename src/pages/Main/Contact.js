@@ -57,8 +57,56 @@ const Contact = () => {
   }, [numberValue]);
 
   const handleSend = e => {
-    alert('전송 되었습니다.');
-    //e.preventDefault();
+    e.preventDefault();
+
+    const nameValueTrue =
+      Object.values(nameValue).length > 4 ||
+      typeof nameValue !== 'string' ||
+      undefined;
+    const numberValueTrue = numberValue.length < 13 || numberValue.length > 14;
+    const contentValueTrue =
+      typeof contentValue !== 'string' || contentValue.length < 2;
+    const error = !e.target.value;
+
+    //console.log(nameValue.length, numberValue.length, contentValue.length);
+    console.log(nameValue === error);
+    const promise = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (Object.values(numberValue).length < 13 || numberValue.length > 14) {
+          console.log('name 성공');
+          resolve('aaa');
+        }
+      }, 1000);
+    });
+    goto();
+    // if (nameValueTrue || error) {
+    // alert('이름을 확인해주세요.');
+    //console.log('name안');
+    // } else if (
+    //   Object.values(numberValue).length < 13 ||
+    //   numberValue.length > 14
+    // ) {
+    //   console.log('if');
+    //   alert('휴대폰번호를 확인해주세요.');
+    // } else if (
+    //   Object.values(contentValue).length < 2 ||
+    //   typeof contentValue !== 'string'
+    // ) {
+    //   console.log('content');
+    //   alert('내용을 확인해주세요.');
+    //} else {
+    //   goto();
+  };
+
+  const goto = () => {
+    // fetch('../../../public/data/mainData.json',{})
+    //   .then(res => res.json())
+    //   .then(data => {
+    //     console.log(nameValue);
+    //     if (data.nameValue === String) {
+    alert('전송되었습니다.');
+    //     }
+    //   });
   };
 
   return (
@@ -94,6 +142,7 @@ const Contact = () => {
         <ContentBox>
           <div>Content</div>
           <ContentInput
+            placeholder="내용 입력."
             name="contentValue"
             value={contentValue || ''}
             onChange={handleNumber}
@@ -121,12 +170,7 @@ const Map = styled.div`
   height: 80vh;
 `;
 
-const ContentWrap = styled.form.attrs({
-  id: 'id',
-  name: '',
-  method: 'post',
-  action: '../../../public/data/mainData.json',
-})`
+const ContentWrap = styled.form`
   margin: 5%;
   padding-bottom: 5%;
 `;
@@ -141,6 +185,10 @@ const ContentInput = styled.input`
   height: 30px;
   width: 100%;
   border: none;
+
+  ::placeholder {
+    color: lightgray;
+  }
 `;
 
 const Submit = styled.button`

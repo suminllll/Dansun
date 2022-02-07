@@ -1,8 +1,8 @@
 [
   {
-    "id": 0,
-    "nameValue": "",
-    "numberValue": "",
-    "contentValue": ""
+    "id": "Number",
+    "nameValue": "String",
+    "numberValue": "Number",
+    "contentValue": "String"
   }
 ]
