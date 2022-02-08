@@ -58,45 +58,64 @@ const Contact = () => {
 
   const handleSend = e => {
     e.preventDefault();
+    //console.log(typeof stringify(nameValue) === 'undefined');
 
     const nameValueTrue =
       Object.values(nameValue).length > 4 ||
+      Object.values(nameValue).length < 1 ||
       typeof nameValue !== 'string' ||
-      undefined;
-    const numberValueTrue = numberValue.length < 13 || numberValue.length > 14;
+      Object.values(numberValue) === '' ||
+      Object.values(numberValue) === undefined;
+
+    const numberValueTrue =
+      Object.values(numberValue).length < 13 ||
+      Object.values(numberValue).length > 14;
+
     const contentValueTrue =
-      typeof contentValue !== 'string' || contentValue.length < 2;
+      typeof contentValue !== 'string' ||
+      Object.values(contentValue).length < 2 ||
+      '' ||
+      undefined;
+
     const error = !e.target.value;
 
-    //console.log(nameValue.length, numberValue.length, contentValue.length);
-    console.log(nameValue === error);
-    const promise = new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (Object.values(numberValue).length < 13 || numberValue.length > 14) {
-          console.log('name 성공');
-          resolve('aaa');
-        }
-      }, 1000);
-    });
-    goto();
-    // if (nameValueTrue || error) {
-    // alert('이름을 확인해주세요.');
-    //console.log('name안');
-    // } else if (
-    //   Object.values(numberValue).length < 13 ||
-    //   numberValue.length > 14
-    // ) {
-    //   console.log('if');
-    //   alert('휴대폰번호를 확인해주세요.');
-    // } else if (
-    //   Object.values(contentValue).length < 2 ||
-    //   typeof contentValue !== 'string'
-    // ) {
-    //   console.log('content');
-    //   alert('내용을 확인해주세요.');
-    //} else {
-    //   goto();
+    if (nameValueTrue) {
+      alert('이름을 확인해주세요.');
+      console.log('name안');
+    } else if (numberValueTrue) {
+      console.log('number');
+      alert('휴대폰번호를 확인해주세요.');
+    } else if (contentValueTrue) {
+      console.log('content');
+      alert('내용을 확인해주세요.');
+    } else {
+      goto();
+    }
   };
+  //console.log(nameValue.length, numberValue.length, contentValue.length);
+  //console.log(nameValue);
+
+  //   const err = new Error('이름을 확인해주세요.');
+  //   const success = alert('전송');
+  //   const promise = new Promise((resolve, reject) => {
+  //     setTimeout(() => {
+  //       if (numberValue.length < 1 || numberValue.length > 4) {
+  //         console.log('name 성공');
+  //         return reject(err);
+  //       }
+  //       resolve(success);
+  //     }, 1000);
+  //   });
+  //   return promise;
+  // };
+  // async function runTasks() {
+  //   try {
+  //     let nameValue = await handleSend(undefined);
+  //     console.log('try');
+  //   } catch (e) {
+  //     console.log('catch');
+  //   }
+  // }
 
   const goto = () => {
     // fetch('../../../public/data/mainData.json',{})
@@ -127,7 +146,7 @@ const Contact = () => {
           <div>Name</div>
           <ContentInput
             name="nameValue"
-            value={nameValue || ''}
+            value={nameValue}
             onChange={handleNumber}
           />
         </ContentBox>
@@ -135,7 +154,7 @@ const Contact = () => {
           <div>Phone Number</div>
           <ContentInput
             name="numberValue"
-            value={numberValue || ''}
+            value={numberValue}
             onChange={handleNumber}
           />
         </ContentBox>
@@ -144,7 +163,7 @@ const Contact = () => {
           <ContentInput
             placeholder="내용 입력."
             name="contentValue"
-            value={contentValue || ''}
+            value={contentValue}
             onChange={handleNumber}
           />
         </ContentBox>
