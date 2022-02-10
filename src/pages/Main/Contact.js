@@ -4,6 +4,8 @@ import styled from 'styled-components';
 const { kakao } = window;
 
 const Contact = () => {
+  const [inputStatus, setInputStatus] = useState('');
+  const [errCheck, setErrCheck] = useState(false);
   const [values, setValues] = useState({
     nameValue: '',
     numberValue: '',
@@ -12,14 +14,52 @@ const Contact = () => {
 
   const { nameValue, numberValue, contentValue } = values;
 
+  const submitForm = e => {
+    e.preventDefault();
+    console.log(values);
+  };
+
   const handleNumber = e => {
     const { value, name } = e.target;
-
     setValues({
       ...values,
       [name]: value,
     });
   };
+
+  const handleChange = e => {
+    e.preventDefault();
+    setErrCheck(err(values));
+    setErrCheck(true);
+  };
+
+  const err = values => {
+    console.log(values);
+    if (nameValue.length === 1) {
+      console.log('if안 setInputStatus->', inputStatus);
+      console.log('if안 nameValue', nameValue);
+      setInputStatus('nameValue');
+    } else {
+      setInputStatus('name');
+    }
+
+    if (numberValue.length < 11 && numberValue.length > 1) {
+      console.log('setInputStatus', inputStatus);
+      setInputStatus('numberValue');
+    } else {
+      setInputStatus('number');
+    }
+
+    return inputStatus;
+  };
+
+  //inputStatus길이가 0 이거나 errCheck가 true 상태일 때
+  //submitForm을 누르면 inputStatus가 마운트 되도록
+  useEffect(() => {
+    if (inputStatus.length === 0 && errCheck) {
+      submitForm();
+    }
+  }, [inputStatus]);
 
   //지도
   useEffect(() => {
@@ -56,67 +96,6 @@ const Contact = () => {
     }
   }, [numberValue]);
 
-  const handleSend = e => {
-    e.preventDefault();
-    //console.log(typeof stringify(nameValue) === 'undefined');
-
-    const nameValueTrue =
-      Object.values(nameValue).length > 4 ||
-      Object.values(nameValue).length < 1 ||
-      typeof nameValue !== 'string' ||
-      Object.values(numberValue) === '' ||
-      Object.values(numberValue) === undefined;
-
-    const numberValueTrue =
-      Object.values(numberValue).length < 13 ||
-      Object.values(numberValue).length > 14;
-
-    const contentValueTrue =
-      typeof contentValue !== 'string' ||
-      Object.values(contentValue).length < 2 ||
-      '' ||
-      undefined;
-
-    const error = !e.target.value;
-
-    if (nameValueTrue) {
-      alert('이름을 확인해주세요.');
-      console.log('name안');
-    } else if (numberValueTrue) {
-      console.log('number');
-      alert('휴대폰번호를 확인해주세요.');
-    } else if (contentValueTrue) {
-      console.log('content');
-      alert('내용을 확인해주세요.');
-    } else {
-      goto();
-    }
-  };
-  //console.log(nameValue.length, numberValue.length, contentValue.length);
-  //console.log(nameValue);
-
-  //   const err = new Error('이름을 확인해주세요.');
-  //   const success = alert('전송');
-  //   const promise = new Promise((resolve, reject) => {
-  //     setTimeout(() => {
-  //       if (numberValue.length < 1 || numberValue.length > 4) {
-  //         console.log('name 성공');
-  //         return reject(err);
-  //       }
-  //       resolve(success);
-  //     }, 1000);
-  //   });
-  //   return promise;
-  // };
-  // async function runTasks() {
-  //   try {
-  //     let nameValue = await handleSend(undefined);
-  //     console.log('try');
-  //   } catch (e) {
-  //     console.log('catch');
-  //   }
-  // }
-
   const goto = () => {
     // fetch('../../../public/data/mainData.json',{})
     //   .then(res => res.json())
@@ -124,6 +103,12 @@ const Contact = () => {
     //     console.log(nameValue);
     //     if (data.nameValue === String) {
     alert('전송되었습니다.');
+    setInputStatus('');
+    setValues({
+      nameValue: '',
+      numberValue: '',
+      contentValue: '',
+    });
     //     }
     //   });
   };
@@ -141,33 +126,39 @@ const Contact = () => {
 
       <Map id="map"></Map>
 
-      <ContentWrap>
+      <ContentWrap onChange={handleChange}>
         <ContentBox>
           <div>Name</div>
           <ContentInput
             name="nameValue"
-            value={nameValue}
+            defaultValue={nameValue}
             onChange={handleNumber}
           />
+          {inputStatus === 'nameValue' && <ErrMes>이름을 확인해주세요.</ErrMes>}
         </ContentBox>
         <ContentBox>
           <div>Phone Number</div>
           <ContentInput
             name="numberValue"
-            value={numberValue}
+            defaultValue={numberValue}
             onChange={handleNumber}
           />
+          {inputStatus === 'numberValue' && (
+            <ErrMes>휴대번호를 확인해주세요.</ErrMes>
+          )}
         </ContentBox>
         <ContentBox>
           <div>Content</div>
           <ContentInput
-            placeholder="내용 입력."
             name="contentValue"
-            value={contentValue}
+            defaultValue={contentValue}
             onChange={handleNumber}
           />
+          {inputStatus === 'contentValue' && (
+            <ErrMes>내용을 확인해주세요.</ErrMes>
+          )}
         </ContentBox>
-        <Submit onClick={handleSend}>Send</Submit>
+        <Submit onClick={submitForm}>Send</Submit>
       </ContentWrap>
     </>
   );
@@ -196,7 +187,6 @@ const ContentWrap = styled.form`
 
 const ContentBox = styled.div`
   margin-bottom: 5%;
-  border-bottom: 1px solid lightgray;
 `;
 
 const ContentInput = styled.input`
@@ -204,10 +194,13 @@ const ContentInput = styled.input`
   height: 30px;
   width: 100%;
   border: none;
+  border-bottom: 1px solid lightgray;
+`;
 
-  ::placeholder {
-    color: lightgray;
-  }
+const ErrMes = styled.div`
+  margin-top: 5px;
+  color: #006633;
+  font-size: 13px;
 `;
 
 const Submit = styled.button`
