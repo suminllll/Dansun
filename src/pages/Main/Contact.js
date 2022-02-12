@@ -4,20 +4,16 @@ import styled from 'styled-components';
 const { kakao } = window;
 
 const Contact = () => {
-  const [inputStatus, setInputStatus] = useState('');
-  const [errCheck, setErrCheck] = useState(false);
-  const [values, setValues] = useState({
+  const intialValues = {
     nameValue: '',
     numberValue: '',
     contentValue: '',
-  });
-
-  const { nameValue, numberValue, contentValue } = values;
-
-  const submitForm = e => {
-    e.preventDefault();
-    console.log(values);
   };
+  const [values, setValues] = useState(intialValues);
+  const [inputStatus, setInputStatus] = useState({});
+  const [errCheck, setErrCheck] = useState(false);
+
+  //const { nameValue, numberValue, contentValue } = values;
 
   const handleNumber = e => {
     const { value, name } = e.target;
@@ -27,39 +23,55 @@ const Contact = () => {
     });
   };
 
-  const handleChange = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    setErrCheck(err(values));
+    setInputStatus(err(values));
     setErrCheck(true);
   };
 
   const err = values => {
-    console.log(values);
-    if (nameValue.length === 1) {
-      console.log('if안 setInputStatus->', inputStatus);
-      console.log('if안 nameValue', nameValue);
-      setInputStatus('nameValue');
-    } else {
-      setInputStatus('name');
+    let errors = {};
+
+    //name input
+    if (
+      values.nameValue.length === 1 ||
+      values.nameValue.length > 4 ||
+      !values.nameValue
+    ) {
+      errors.nameValue = '이름을 확인해주세요.';
+    }
+    //number input
+    if (values.numberValue.length < 13) {
+      errors.numberValue = '휴대번호를 확인해주세요.';
     }
 
-    if (numberValue.length < 11 && numberValue.length > 1) {
-      console.log('setInputStatus', inputStatus);
-      setInputStatus('numberValue');
-    } else {
-      setInputStatus('number');
+    //content input
+    if (values.contentValue.length < 3 || !typeof contentValue === 'string') {
+      errors.contentValue = '내용을 확인해주세요.';
     }
-
-    return inputStatus;
+    console.log(errors);
+    return errors;
   };
 
   //inputStatus길이가 0 이거나 errCheck가 true 상태일 때
   //submitForm을 누르면 inputStatus가 마운트 되도록
   useEffect(() => {
-    if (inputStatus.length === 0 && errCheck) {
+    if (Object.keys(inputStatus).length === 0 && errCheck) {
       submitForm();
     }
   }, [inputStatus]);
+
+  const submitForm = () => {
+    console.log('반환되는 값', values);
+    if (Object.keys(inputStatus).length === 0 && errCheck) {
+      alert('전송되었습니다.');
+      setValues({
+        nameValue: '',
+        numberValue: '',
+        contentValue: '',
+      });
+    }
+  };
 
   //지도
   useEffect(() => {
@@ -82,36 +94,19 @@ const Contact = () => {
   }, []);
 
   //핸드폰 번호
-  useEffect(() => {
-    if (numberValue.length === 11) {
-      setValues({
-        numberValue: numberValue.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'),
-      });
-    } else if (numberValue.length === 13) {
-      setValues({
-        numberValue: numberValue
-          .replace(/-/g, '')
-          .replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'),
-      });
-    }
-  }, [numberValue]);
-
-  const goto = () => {
-    // fetch('../../../public/data/mainData.json',{})
-    //   .then(res => res.json())
-    //   .then(data => {
-    //     console.log(nameValue);
-    //     if (data.nameValue === String) {
-    alert('전송되었습니다.');
-    setInputStatus('');
-    setValues({
-      nameValue: '',
-      numberValue: '',
-      contentValue: '',
-    });
-    //     }
-    //   });
-  };
+  // useEffect(() => {
+  //   if (numberValue.length === 11) {
+  //     setValues({
+  //       numberValue: numberValue.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'),
+  //     });
+  //   } else if (numberValue.length === 13) {
+  //     setValues({
+  //       numberValue: numberValue
+  //         .replace(/-/g, '')
+  //         .replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'),
+  //     });
+  //   }
+  // }, [numberValue]);
 
   return (
     <>
@@ -126,39 +121,43 @@ const Contact = () => {
 
       <Map id="map"></Map>
 
-      <ContentWrap onChange={handleChange}>
+      {/* 버튼을 누르면 이 폼에 데이터들이 제출되도록 */}
+      <ContentWrap onSubmit={handleSubmit}>
         <ContentBox>
           <div>Name</div>
           <ContentInput
             name="nameValue"
-            defaultValue={nameValue}
+            defaultValue={values.nameValue}
             onChange={handleNumber}
           />
-          {inputStatus === 'nameValue' && <ErrMes>이름을 확인해주세요.</ErrMes>}
+          {/* 에러시 */}
+          {inputStatus.nameValue && <ErrMes>{inputStatus.nameValue} </ErrMes>}
         </ContentBox>
         <ContentBox>
           <div>Phone Number</div>
           <ContentInput
             name="numberValue"
-            defaultValue={numberValue}
+            defaultValue={values.numberValue}
             onChange={handleNumber}
           />
-          {inputStatus === 'numberValue' && (
-            <ErrMes>휴대번호를 확인해주세요.</ErrMes>
+          {inputStatus.numberValue && (
+            <ErrMes>{inputStatus.numberValue}</ErrMes>
           )}
         </ContentBox>
         <ContentBox>
           <div>Content</div>
           <ContentInput
             name="contentValue"
-            defaultValue={contentValue}
+            defaultValue={values.contentValue}
             onChange={handleNumber}
           />
-          {inputStatus === 'contentValue' && (
-            <ErrMes>내용을 확인해주세요.</ErrMes>
+          {inputStatus.contentValue && (
+            <ErrMes>{inputStatus.contentValue}</ErrMes>
           )}
         </ContentBox>
-        <Submit onClick={submitForm}>Send</Submit>
+        <Submit type="submit" onKeyUp={handleSubmit} errCheck={errCheck}>
+          Send
+        </Submit>
       </ContentWrap>
     </>
   );
@@ -209,8 +208,10 @@ const Submit = styled.button`
   height: 35px;
   background-color: #003300;
   color: white;
-  opacity: 0.7;
+  /* opacity: 0.7; */
   border-radius: 3px;
+
+  opacity: ${buttonChange => (buttonChange.errCheck ? '1' : '0.7')};
 `;
 
 export default Contact;
