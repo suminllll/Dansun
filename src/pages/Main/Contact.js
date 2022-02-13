@@ -13,9 +13,7 @@ const Contact = () => {
   const [inputStatus, setInputStatus] = useState({});
   const [errCheck, setErrCheck] = useState(false);
 
-  //const { nameValue, numberValue, contentValue } = values;
-
-  const handleNumber = e => {
+  const handleChange = e => {
     const { value, name } = e.target;
     setValues({
       ...values,
@@ -37,19 +35,17 @@ const Contact = () => {
       values.nameValue.length === 1 ||
       values.nameValue.length > 4 ||
       !values.nameValue
-    ) {
+    )
       errors.nameValue = '이름을 확인해주세요.';
-    }
+
     //number input
-    if (values.numberValue.length < 13) {
+    if (values.numberValue.length < 13)
       errors.numberValue = '휴대번호를 확인해주세요.';
-    }
 
     //content input
-    if (values.contentValue.length < 3 || !typeof contentValue === 'string') {
+    if (values.contentValue.length < 3 || !typeof contentValue === 'string')
       errors.contentValue = '내용을 확인해주세요.';
-    }
-    console.log(errors);
+
     return errors;
   };
 
@@ -65,11 +61,6 @@ const Contact = () => {
     console.log('반환되는 값', values);
     if (Object.keys(inputStatus).length === 0 && errCheck) {
       alert('전송되었습니다.');
-      setValues({
-        nameValue: '',
-        numberValue: '',
-        contentValue: '',
-      });
     }
   };
 
@@ -128,7 +119,7 @@ const Contact = () => {
           <ContentInput
             name="nameValue"
             defaultValue={values.nameValue}
-            onChange={handleNumber}
+            onChange={handleChange}
           />
           {/* 에러시 */}
           {inputStatus.nameValue && <ErrMes>{inputStatus.nameValue} </ErrMes>}
@@ -138,7 +129,7 @@ const Contact = () => {
           <ContentInput
             name="numberValue"
             defaultValue={values.numberValue}
-            onChange={handleNumber}
+            onChange={handleChange}
           />
           {inputStatus.numberValue && (
             <ErrMes>{inputStatus.numberValue}</ErrMes>
@@ -149,7 +140,7 @@ const Contact = () => {
           <ContentInput
             name="contentValue"
             defaultValue={values.contentValue}
-            onChange={handleNumber}
+            onChange={handleChange}
           />
           {inputStatus.contentValue && (
             <ErrMes>{inputStatus.contentValue}</ErrMes>
@@ -208,10 +199,8 @@ const Submit = styled.button`
   height: 35px;
   background-color: #003300;
   color: white;
-  /* opacity: 0.7; */
+  opacity: 0.7;
   border-radius: 3px;
-
-  opacity: ${buttonChange => (buttonChange.errCheck ? '1' : '0.7')};
 `;
 
 export default Contact;
