@@ -5,4 +5,4 @@
 
 ![ProjectPage](https://user-images.githubusercontent.com/79704928/152339604-afadfa14-30c7-4685-91d7-5d69b858f842.gif)
 
-https://user-images.githubusercontent.com/79704928/153865644-95ddf065-f1ea-4a06-91c9-359507a8bc3d.mov
+![contactPage](https://user-images.githubusercontent.com/79704928/153865941-a569c0c5-ed0e-4608-b708-778a464b6385.gif)
