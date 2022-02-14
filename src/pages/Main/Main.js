@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Nav from '../../component/Nav/Nav';
 import Design from './Design';
 import Contact from './Contact';
+import Qna from './Qna';
 
 const Main = () => {
   const focusTarget = useRef([]);
@@ -40,6 +41,7 @@ const Main = () => {
       <Contact />
 
       <Title ref={el => (focusTarget.current[2] = el)}>QnA</Title>
+      <Qna />
     </Article>
   );
 };

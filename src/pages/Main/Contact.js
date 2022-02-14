@@ -4,12 +4,12 @@ import styled from 'styled-components';
 const { kakao } = window;
 
 const Contact = () => {
-  const intialValues = {
+  const initialValues = {
     nameValue: '',
     numberValue: '',
     contentValue: '',
   };
-  const [values, setValues] = useState(intialValues);
+  const [values, setValues] = useState(initialValues);
   const [inputStatus, setInputStatus] = useState({});
   const [errCheck, setErrCheck] = useState(false);
 
@@ -83,21 +83,6 @@ const Contact = () => {
     });
     marker.setMap(map);
   }, []);
-
-  //핸드폰 번호
-  // useEffect(() => {
-  //   if (numberValue.length === 11) {
-  //     setValues({
-  //       numberValue: numberValue.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'),
-  //     });
-  //   } else if (numberValue.length === 13) {
-  //     setValues({
-  //       numberValue: numberValue
-  //         .replace(/-/g, '')
-  //         .replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'),
-  //     });
-  //   }
-  // }, [numberValue]);
 
   return (
     <>
