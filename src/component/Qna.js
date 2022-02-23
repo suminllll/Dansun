@@ -1,25 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Qna = () => {
-  const [posts, setPosts] = useState([]);
+const Qna = ({ posts }) => {
   const navigate = useNavigate();
 
+  //현재날짜 구함
   const now = new Date();
   const year = now.getFullYear();
   const month = now.getMonth();
   const day = now.getDate();
   let today = `${year}-${month}-${day}`;
 
-  useEffect(() => {
-    fetch('data/boardData.json')
-      .then(res => res.json())
-      .then(posts => {
-        setPosts(posts);
-      });
-  }, []);
-
+  //게시글 제목 클릭하면 해당 내용으로 이동
   const handleTitle = () => {
     navigate('/');
   };
@@ -108,9 +101,9 @@ const BodyTd = styled.td`
 
 const Button = styled.button`
   float: right;
-  margin-top: 15px;
-  width: 85px;
-  height: 30px;
+  margin-top: 20px;
+  width: 110px;
+  height: 35px;
   border-style: none;
   background-color: #003300;
   opacity: 0.7;

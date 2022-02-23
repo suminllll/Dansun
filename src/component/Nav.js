@@ -1,15 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const Nav = ({ scrollTo }) => {
-  const [scrollY, setScrollY] = useState(0);
-
-  //nav 색깔 바꾸는 로직
-  const handleScroll = () => {
-    setScrollY(window.pageYOffset);
-  };
-
+const Nav = ({ scrollY, handleScroll, scrollTo }) => {
+  // 스크롤시 handleScroll를 호출해 색깔을 변경
   useEffect(() => {
     const watch = () => {
       window.addEventListener('scroll', handleScroll);
@@ -21,7 +15,7 @@ const Nav = ({ scrollTo }) => {
     };
   });
 
-  //클릭시 맨 위로 이동
+  // 클릭시 맨 위로 이동
   const handleAbout = () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   };

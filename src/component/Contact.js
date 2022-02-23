@@ -1,54 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 const { kakao } = window;
 
-const Contact = () => {
-  const initialValues = {
-    nameValue: '',
-    numberValue: '',
-    contentValue: '',
-  };
-  const [values, setValues] = useState(initialValues);
-  const [inputStatus, setInputStatus] = useState({});
-  const [errCheck, setErrCheck] = useState(false);
-
-  const handleChange = e => {
-    const { value, name } = e.target;
-    setValues({
-      ...values,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    setInputStatus(err(values));
-    setErrCheck(true);
-  };
-
-  const err = values => {
-    let errors = {};
-
-    //name input
-    if (
-      values.nameValue.length === 1 ||
-      values.nameValue.length > 4 ||
-      !values.nameValue
-    )
-      errors.nameValue = '이름을 확인해주세요.';
-
-    //number input
-    if (values.numberValue.length < 13)
-      errors.numberValue = '휴대번호를 확인해주세요.';
-
-    //content input
-    if (values.contentValue.length < 3 || !typeof contentValue === 'string')
-      errors.contentValue = '내용을 확인해주세요.';
-
-    return errors;
-  };
-
+const Contact = ({
+  values,
+  inputStatus,
+  errCheck,
+  handleChange,
+  handleSubmit,
+}) => {
   //inputStatus길이가 0 이거나 errCheck가 true 상태일 때
   //submitForm을 누르면 inputStatus가 마운트 되도록
   useEffect(() => {
@@ -57,6 +18,7 @@ const Contact = () => {
     }
   }, [inputStatus]);
 
+  //유효성 검사를 마치면 입력된 값이 콘솔에 찍히고 알림창이 뜸
   const submitForm = () => {
     console.log('반환되는 값', values);
     if (Object.keys(inputStatus).length === 0 && errCheck) {
@@ -181,7 +143,7 @@ const ErrMes = styled.div`
 const Submit = styled.button`
   border: none;
   width: 100%;
-  height: 35px;
+  height: 45px;
   background-color: #003300;
   color: white;
   opacity: 0.7;
