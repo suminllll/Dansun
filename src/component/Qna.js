@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Qna = ({ posts }) => {
+const Qna = ({ posts, handleSearch, filterValue, handleEnter }) => {
   const navigate = useNavigate();
 
   //현재날짜 구함
@@ -19,9 +19,8 @@ const Qna = ({ posts }) => {
 
   return (
     <QnaBox>
-      <SearchBox>
-        <Search placeholder="Search" />
-        {/* <FontAwesomeIcon icon={faSearch} className="search" /> */}
+      <SearchBox onKeyPress={handleEnter}>
+        <Search placeholder="Search" onChange={handleSearch} />
       </SearchBox>
       <Table>
         <thead>
@@ -33,21 +32,38 @@ const Qna = ({ posts }) => {
           </tr>
         </thead>
         <tbody>
-          {posts.map(data => {
-            return (
-              <tr key={data.no}>
-                <BodyTd>{data.no}</BodyTd>
-                <BodyTd
-                  onClick={handleTitle}
-                  style={{ textAlign: 'left', cursor: 'pointer' }}
-                >
-                  {data.title}
-                </BodyTd>
-                <BodyTd>{data.writer}</BodyTd>
-                <BodyTd>{today}</BodyTd>
-              </tr>
-            );
-          })}
+          {/* 필터링된 입력값이 없으면 전체 게시물을, 아니면 필터링된 게시물을 보여줌 */}
+          {!filterValue
+            ? posts.map(data => {
+                return (
+                  <tr key={data.no}>
+                    <BodyTd>{data.no}</BodyTd>
+                    <BodyTd
+                      onClick={handleTitle}
+                      style={{ textAlign: 'left', cursor: 'pointer' }}
+                    >
+                      {data.title}
+                    </BodyTd>
+                    <BodyTd>{data.writer}</BodyTd>
+                    <BodyTd>{today}</BodyTd>
+                  </tr>
+                );
+              })
+            : filterValue.map(data => {
+                return (
+                  <tr key={data.no}>
+                    <BodyTd>{data.no}</BodyTd>
+                    <BodyTd
+                      onClick={handleTitle}
+                      style={{ textAlign: 'left', cursor: 'pointer' }}
+                    >
+                      {data.title}
+                    </BodyTd>
+                    <BodyTd>{data.writer}</BodyTd>
+                    <BodyTd>{today}</BodyTd>
+                  </tr>
+                );
+              })}
         </tbody>
       </Table>
       <Button>글쓰기</Button>
@@ -55,7 +71,7 @@ const Qna = ({ posts }) => {
   );
 };
 
-const SearchBox = styled.div`
+const SearchBox = styled.form`
   float: right;
   margin-bottom: 20px;
   width: 20%;
@@ -72,7 +88,6 @@ const Search = styled.input`
   }
 `;
 
-// const FontAwesomeIcon = styled.div``;
 const QnaBox = styled.div`
   margin: 4%;
   height: 100vh;

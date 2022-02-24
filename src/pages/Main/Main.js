@@ -14,10 +14,13 @@ const Main = () => {
     numberValue: '',
     contentValue: '',
   }); //[contact] 이름, 핸드폰번호, 내용값을 담을 state
+
   const [inputStatus, setInputStatus] = useState({}); //[contact] 입력값을 err 함수로 보냄
   const [errCheck, setErrCheck] = useState(false); //[contact] 입력값을 받으면 true로 변환
 
   const [posts, setPosts] = useState([]); //[QnA] 통신으로 데이터 받아오는 state
+  const [searchValue, setSearchValue] = useState(''); //검색창에서 입력값을 받는 state
+  const [filterValue, setFilterValue] = useState('');
 
   const focusTarget = useRef([]); //[nav] 해당 카테고리로 이동할때 사용
 
@@ -76,6 +79,24 @@ const Main = () => {
     return errors;
   };
 
+  //휴대폰 번호 자동 하이픈기능
+  useEffect(() => {
+    if (values.numberValue.length === 11) {
+      setValues({
+        numberValue: values.numberValue.replace(
+          /(\d{3})(\d{4})(\d{4})/,
+          '$1-$2-$3'
+        ),
+      });
+    } else if (values.numberValue.length === 13) {
+      setValues({
+        numberValue: values.numberValue
+          .replace(/-/g, '')
+          .replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'),
+      });
+    }
+  }, [values.numberValue]);
+
   //[QnA] 통신으로 데이터 받아옴
   useEffect(() => {
     fetch('data/boardData.json')
@@ -84,6 +105,32 @@ const Main = () => {
         setPosts(posts);
       });
   }, []);
+
+  //[QnA] SearchValue에 입력값으로 업데이트
+  const handleSearch = e => {
+    setSearchValue(e.target.value);
+  };
+
+  //[QnA] 엔터를 누르면 searchCheck 함수를 호출함
+  const handleEnter = e => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      searchCheck();
+    }
+  };
+
+  //[QnA] 입력값 확인 하는 함수
+  const searchCheck = () => {
+    const filter = posts.filter(
+      posts =>
+        posts.title.toLowerCase().includes(searchValue) ||
+        posts.writer.toLowerCase().includes(searchValue)
+    );
+
+    //입력값이 없으면 알림창 띄우기
+    if (!searchValue) alert('검색할 내용을 입력해주세요.');
+    else if (filter) setFilterValue(filter);
+  };
 
   return (
     <Article>
@@ -109,10 +156,17 @@ const Main = () => {
         handleChange={handleChange}
         handleSubmit={handleSubmit}
         errCheck={errCheck}
+        filterValue={filterValue}
+        searchCheck={searchCheck}
       />
 
       <Title ref={el => (focusTarget.current[2] = el)}>QnA</Title>
-      <Qna posts={posts} />
+      <Qna
+        posts={posts}
+        handleSearch={handleSearch}
+        filterValue={filterValue}
+        handleEnter={handleEnter}
+      />
     </Article>
   );
 };
