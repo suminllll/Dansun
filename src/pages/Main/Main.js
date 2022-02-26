@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import Nav from '../../component/Nav';
+import { MainNav } from '../../component/Nav';
 import Design from '../../component/Design';
 import Contact from '../../component/Contact';
 import Qna from '../../component/Qna';
@@ -134,7 +133,11 @@ const Main = () => {
 
   return (
     <Article>
-      <Nav handleScroll={handleScroll} scrollY={scrollY} scrollTo={scrollTo} />
+      <MainNav
+        handleScroll={handleScroll}
+        scrollY={scrollY}
+        scrollTo={scrollTo}
+      />
       <Explain>
         <TextBox>
           단 하나의 선으로 시작해,

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const Nav = ({ scrollY, handleScroll, scrollTo }) => {
+export const MainNav = ({ scrollY, handleScroll, scrollTo }) => {
   // 스크롤시 handleScroll를 호출해 색깔을 변경
   useEffect(() => {
     const watch = () => {
@@ -91,4 +91,27 @@ const Contact = styled(Category)``;
 
 const Qna = styled(Category)``;
 
-export default Nav;
+export const WritingNav = () => {
+  return (
+    <>
+      <NavWrap>
+        <>
+          <LogoTitle to="/">Design DanSun</LogoTitle>
+        </>
+        <RightBox>
+          <Qna>QnA</Qna>
+        </RightBox>
+      </NavWrap>
+    </>
+  );
+};
+
+const NavWrap = styled.nav`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+  width: 100%;
+  z-index: 990;
+  background-color: #003300;
+`;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { OneButton } from '../component/Button';
 
 const Qna = ({ posts, handleSearch, filterValue, handleEnter }) => {
   const navigate = useNavigate();
@@ -17,6 +18,9 @@ const Qna = ({ posts, handleSearch, filterValue, handleEnter }) => {
     navigate('/');
   };
 
+  const handleWrite = () => {
+    navigate('/writing');
+  };
   return (
     <QnaBox>
       <SearchBox onKeyPress={handleEnter}>
@@ -66,7 +70,7 @@ const Qna = ({ posts, handleSearch, filterValue, handleEnter }) => {
               })}
         </tbody>
       </Table>
-      <Button>글쓰기</Button>
+      <OneButton text="글쓰기" handleWrite={handleWrite} />
     </QnaBox>
   );
 };
@@ -110,22 +114,8 @@ const BodyTd = styled.td`
   padding: 15px;
   border-top: 1px solid lightgray;
   border-bottom: 1px solid lightgray;
-  color: lightgray;
+  color: #a0a0a0;
   letter-spacing: 1px;
-`;
-
-const Button = styled.button`
-  float: right;
-  margin-top: 20px;
-  width: 110px;
-  height: 35px;
-  border-style: none;
-  background-color: #003300;
-  opacity: 0.7;
-  color: white;
-  font-size: 14px;
-  letter-spacing: 1px;
-  cursor: pointer;
 `;
 
 export default Qna;
