@@ -13,13 +13,12 @@ const Main = () => {
     numberValue: '',
     contentValue: '',
   }); //[contact] 이름, 핸드폰번호, 내용값을 담을 state
-
   const [inputStatus, setInputStatus] = useState({}); //[contact] 입력값을 err 함수로 보냄
   const [errCheck, setErrCheck] = useState(false); //[contact] 입력값을 받으면 true로 변환
 
   const [posts, setPosts] = useState([]); //[QnA] 통신으로 데이터 받아오는 state
-  const [searchValue, setSearchValue] = useState(''); //검색창에서 입력값을 받는 state
-  const [filterValue, setFilterValue] = useState('');
+  const [searchValue, setSearchValue] = useState(''); //[QnA] 검색창에서 입력값을 받는 state
+  const [filterValue, setFilterValue] = useState(''); //[QnA] 유효성 검사가 완료된 값을 담음
 
   const focusTarget = useRef([]); //[nav] 해당 카테고리로 이동할때 사용
 
@@ -78,7 +77,7 @@ const Main = () => {
     return errors;
   };
 
-  //휴대폰 번호 자동 하이픈기능
+  //[contact] 휴대폰 번호 자동 하이픈기능
   useEffect(() => {
     if (values.numberValue.length === 11) {
       setValues({

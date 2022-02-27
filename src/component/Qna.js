@@ -2,8 +2,9 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { OneButton } from '../component/Button';
+import Writing from '../pages/Writing';
 
-const Qna = ({ posts, handleSearch, filterValue, handleEnter }) => {
+const Qna = ({ posts, handleSearch, filterValue, handleEnter, inputData }) => {
   const navigate = useNavigate();
 
   //현재날짜 구함
@@ -21,6 +22,8 @@ const Qna = ({ posts, handleSearch, filterValue, handleEnter }) => {
   const handleWrite = () => {
     navigate('/writing');
   };
+
+  console.log(inputData);
   return (
     <QnaBox>
       <SearchBox onKeyPress={handleEnter}>
@@ -68,6 +71,22 @@ const Qna = ({ posts, handleSearch, filterValue, handleEnter }) => {
                   </tr>
                 );
               })}
+          {inputData &&
+            inputData.map(user => {
+              return (
+                <tr key={user.id}>
+                  <BodyTd>{user.id}</BodyTd>
+                  <BodyTd
+                    onClick={handleTitle}
+                    style={{ textAlign: 'left', cursor: 'pointer' }}
+                  >
+                    {user.userTitle}
+                  </BodyTd>
+                  <BodyTd>{user.userName}</BodyTd>
+                  <BodyTd>{today}</BodyTd>
+                </tr>
+              );
+            })}
         </tbody>
       </Table>
       <OneButton text="글쓰기" handleWrite={handleWrite} />
