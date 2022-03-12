@@ -1,11 +1,23 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import { MainNav } from '../../component/Nav';
 import Design from '../../component/Design';
 import Contact from '../../component/Contact';
 import Qna from '../../component/Qna';
+import { useNavigate } from 'react-router-dom';
+import { UserDispatch } from '../../App';
 
-const Main = () => {
+const Main = ({
+  userValues,
+  userName,
+  userPw,
+  userTitle,
+  userContent,
+  onChange,
+  onCreate,
+  posts,
+  handlePush,
+}) => {
   const [scrollY, setScrollY] = useState(0); //[nav] 색깔을 바꿔주는 state
 
   const [values, setValues] = useState({
@@ -16,7 +28,7 @@ const Main = () => {
   const [inputStatus, setInputStatus] = useState({}); //[contact] 입력값을 err 함수로 보냄
   const [errCheck, setErrCheck] = useState(false); //[contact] 입력값을 받으면 true로 변환
 
-  const [posts, setPosts] = useState([]); //[QnA] 통신으로 데이터 받아오는 state
+  // const [posts, setPosts] = useState([]); //[QnA] 통신으로 데이터 받아오는 state
   const [searchValue, setSearchValue] = useState(''); //[QnA] 검색창에서 입력값을 받는 state
   const [filterValue, setFilterValue] = useState(''); //[QnA] 유효성 검사가 완료된 값을 담음
 
@@ -95,14 +107,14 @@ const Main = () => {
     }
   }, [values.numberValue]);
 
-  //[QnA] 통신으로 데이터 받아옴
-  useEffect(() => {
-    fetch('data/boardData.json')
-      .then(res => res.json())
-      .then(posts => {
-        setPosts(posts);
-      });
-  }, []);
+  // //[QnA] 통신으로 데이터 받아옴
+  // useEffect(() => {
+  //   fetch('data/boardData.json')
+  //     .then(res => res.json())
+  //     .then(posts => {
+  //       setPosts(posts);
+  //     });
+  // }, []);
 
   //[QnA] SearchValue에 입력값으로 업데이트
   const handleSearch = e => {
@@ -129,6 +141,40 @@ const Main = () => {
     if (!searchValue) alert('검색할 내용을 입력해주세요.');
     else if (filter) setFilterValue(filter);
   };
+
+  const navigate = useNavigate();
+
+  const dispatch = useContext(UserDispatch);
+
+  //게시 버튼을 누르면 데이터가 로컬스토리지에 저장됨
+  // const a = () => {
+  //   window.localStorage.setItem('userName', JSON.stringify(userValues));
+  //   console.log('writing a', userValues);
+  // };
+
+  // const nextId = useRef(3);
+
+  // 작성한 게시글이 저장 돼 있는 로컬스토리지에서 데이터 가져오기
+  // useEffect(() => {
+  //   //const userValues = window.localStorage.getItem('userName');
+  //   console.log('getItem', userName);
+
+  //   if (userValues) {
+  //     const user = {
+  //       no: nextId.current,
+  // userName,
+  // userPw,
+  // userTitle,
+  // userContent,
+  //     };
+
+  //     //userValues 복사하고 user를 추가한다
+  //     setPosts([...posts, user]);
+  //     nextId.current += 1; //id에 +1을 더해줌
+  //   }
+  // }, [userName]);
+
+  // localStorage.removeItem('dataName');
 
   return (
     <Article>
@@ -168,6 +214,11 @@ const Main = () => {
         handleSearch={handleSearch}
         filterValue={filterValue}
         handleEnter={handleEnter}
+        userValues={userValues}
+        userName={userName}
+        userPw={userPw}
+        userTitle={userTitle}
+        userContent={userContent}
       />
     </Article>
   );

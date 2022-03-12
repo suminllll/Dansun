@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { OneButton } from '../component/Button';
 import Writing from '../pages/Writing';
 
-const Qna = ({ posts, handleSearch, filterValue, handleEnter, inputData }) => {
+const Qna = ({
+  posts,
+  handleSearch,
+  filterValue,
+  handleEnter,
+  inputData,
+  userValues,
+  userName,
+  userPw,
+  userTitle,
+  userContent,
+  handelPush,
+}) => {
   const navigate = useNavigate();
+  // console.log('qna', userName);
 
   //현재날짜 구함
   const now = new Date();
@@ -23,7 +36,6 @@ const Qna = ({ posts, handleSearch, filterValue, handleEnter, inputData }) => {
     navigate('/writing');
   };
 
-  console.log(inputData);
   return (
     <QnaBox>
       <SearchBox onKeyPress={handleEnter}>

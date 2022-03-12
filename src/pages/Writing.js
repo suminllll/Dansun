@@ -4,32 +4,19 @@ import { useNavigate } from 'react-router-dom';
 import { WritingNav } from '../component/Nav';
 import { TwoButton } from '../component/Button';
 
-const Writing = () => {
+const Writing = ({
+  userValues,
+  handleChange,
+  userName,
+  userPw,
+  userTitle,
+  userContent,
+  handlePush,
+}) => {
   const [inputData, setInputData] = useState([]); // 입력된 데이터를 갱신해줄 state
   const [check, setCheck] = useState(false); // 조건에 만족하면 true로 바꿀 state
-  const [userValues, setUserValues] = useState({
-    userName: '',
-    userPw: '',
-    userTitle: '',
-    userContent: '',
-  }); //글쓰기에서의 input 값을 담을 state
-
-  const { userName, userPw, userTitle, userContent } = userValues;
 
   const navigate = useNavigate();
-  const nextId = useRef(3);
-
-  //계산된 속성명
-  const handleChange = e => {
-    const { value, name } = e.target;
-
-    setUserValues({
-      ...userValues,
-      [name]: value,
-    });
-  };
-
-  useEffect(() => {}, []);
 
   //엔터를 눌러도 새로고침이 되지않는 함수
   const handleEnter = e => {
@@ -43,33 +30,9 @@ const Writing = () => {
     navigate('/');
   };
 
-  //게시버튼 클릭시 홈으로 이동후 게시물에 추가하기
-  const handlePush = () => {
-    alert('저장되었습니다.');
-    navigate('/');
-    handleSubmit();
-  };
-
   const handleSubmit = e => {
     setCheck(true);
-    // e.preventDefault();
-    console.log(inputData);
   };
-
-  useEffect(() => {
-    if (check && userValues) {
-      const user = {
-        id: nextId.current,
-        userName,
-        userPw,
-        userTitle,
-        userContent,
-      };
-      //userValues 복사하고 user를 추가한다
-      setInputData([...inputData, user]);
-      nextId.current += 1; //id에 +1을 더해줌
-    }
-  }, [check]);
 
   return (
     <>
@@ -155,4 +118,5 @@ const TextArea = styled.textarea`
     font-size: 18px;
   }
 `;
+
 export default Writing;
