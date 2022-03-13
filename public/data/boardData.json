@@ -1,17 +1,17 @@
 [
   {
     "no": 1,
-    "title": "문의합니다.",
-    "writer": "김길동"
+    "userTitle": "문의합니다.",
+    "userName": "김길동"
   },
   {
     "no": 2,
-    "title": "안방 문의",
-    "writer": "홍길순"
+    "userTitle": "안방 문의",
+    "userName": "홍길순"
   },
   {
     "no": 3,
-    "title": "욕실",
-    "writer": "홍길동"
+    "userTitle": "욕실",
+    "userName": "홍길동"
   }
 ]

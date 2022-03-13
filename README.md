@@ -6,3 +6,5 @@
 ![ProjectPage](https://user-images.githubusercontent.com/79704928/152339604-afadfa14-30c7-4685-91d7-5d69b858f842.gif)
 
 ![contactPage](https://user-images.githubusercontent.com/79704928/153865941-a569c0c5-ed0e-4608-b708-778a464b6385.gif)
+
+![qnaPage](https://user-images.githubusercontent.com/79704928/158054152-755face0-604a-4566-8b35-cb137583ee9b.gif)

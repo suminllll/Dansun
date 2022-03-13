@@ -13,10 +13,7 @@ const Main = ({
   userPw,
   userTitle,
   userContent,
-  onChange,
-  onCreate,
   posts,
-  handlePush,
 }) => {
   const [scrollY, setScrollY] = useState(0); //[nav] 색깔을 바꿔주는 state
 
@@ -107,15 +104,6 @@ const Main = ({
     }
   }, [values.numberValue]);
 
-  // //[QnA] 통신으로 데이터 받아옴
-  // useEffect(() => {
-  //   fetch('data/boardData.json')
-  //     .then(res => res.json())
-  //     .then(posts => {
-  //       setPosts(posts);
-  //     });
-  // }, []);
-
   //[QnA] SearchValue에 입력값으로 업데이트
   const handleSearch = e => {
     setSearchValue(e.target.value);
@@ -141,41 +129,13 @@ const Main = ({
     if (!searchValue) alert('검색할 내용을 입력해주세요.');
     else if (filter) setFilterValue(filter);
   };
+  // const [userData, setUserData] = useState([]);
 
-  const navigate = useNavigate();
-
-  const dispatch = useContext(UserDispatch);
-
-  //게시 버튼을 누르면 데이터가 로컬스토리지에 저장됨
-  // const a = () => {
-  //   window.localStorage.setItem('userName', JSON.stringify(userValues));
-  //   console.log('writing a', userValues);
-  // };
-
-  // const nextId = useRef(3);
-
-  // 작성한 게시글이 저장 돼 있는 로컬스토리지에서 데이터 가져오기
   // useEffect(() => {
-  //   //const userValues = window.localStorage.getItem('userName');
-  //   console.log('getItem', userName);
-
-  //   if (userValues) {
-  //     const user = {
-  //       no: nextId.current,
-  // userName,
-  // userPw,
-  // userTitle,
-  // userContent,
-  //     };
-
-  //     //userValues 복사하고 user를 추가한다
-  //     setPosts([...posts, user]);
-  //     nextId.current += 1; //id에 +1을 더해줌
-  //   }
-  // }, [userName]);
-
-  // localStorage.removeItem('dataName');
-
+  //   let data = window.localStorage.getItem('userName');
+  //   console.log('main', data);
+  // }, []);
+  console.log('main', posts);
   return (
     <Article>
       <MainNav

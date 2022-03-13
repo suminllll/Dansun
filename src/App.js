@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from './pages/Main/Main';
 import Writing from './pages/Writing';
+import { useNavigate } from 'react-router-dom';
 import React, {
   useState,
   useEffect,
@@ -10,25 +11,24 @@ import React, {
 } from 'react';
 
 function reducer(state, action) {
+  const posts = state.posts;
+
   switch (action.type) {
     case 'CREATE_USER':
       console.log(state, action);
-      console.log(state.posts, action.user);
+      console.log(posts, action.user);
       return {
-        //posts: state.posts,action,
+        posts: posts.concat(action.user),
       };
     case 'REMOVE_USER':
       return {
         ...state,
-        posts: state.posts.filter(user => user.no !== action.no),
+        posts: posts.filter(user => user.no !== action.no),
       };
     default:
       return state;
   }
 }
-
-// UserDispatch 라는 이름으로 내보내준다
-export const UserDispatch = React.createContext(null);
 
 function App() {
   const [posts, setPosts] = useState([]); //[QnA] 통신으로 데이터 받아오는 state
@@ -58,59 +58,58 @@ function App() {
       ...userValues,
       [name]: value,
     });
-    console.log('app', userValues);
   };
 
-  const [state, dispatch] = useReducer(reducer, posts);
+  const nextNo = useRef(4);
 
-  const nextNo = useRef(3);
+  //게시 버튼을 누르면 데이터가 로컬스토리지에 저장됨
+  const handlePush = e => {
+    e.preventDefault();
+    //alert('저장되었습니다.');
+    onCreate();
+    window.localStorage.setItem('userName', JSON.stringify(userValues));
+    window.location.replace('/');
+  };
+
+  // localStorage.removeItem('dataName');
+  const [userData, setUserData] = useState([]);
 
   const onCreate = useCallback(() => {
-    dispatch({
-      type: 'CREATE_USER',
-      user: {
-        no: nextNo.current,
-        userName,
-        userPw,
-        userTitle,
-        userContent,
-      },
-    },[userName,
-      userPw,
-      userTitle,
-      userContent]);
+    window.localStorage.getItem('userName');
 
-    const { posts } = state;
+    const user = {
+      no: nextNo.current,
+      userTitle,
+      userName,
+      userContent,
+      userPw,
+    };
 
     //원래 객체를 복사하고 user를 추가하기
-    // setPosts([...posts, user]);
+    setPosts([...posts, user]);
 
-    // onReset();
     nextNo.current += 1;
-  };
+    console.log('user', user);
+    // 작성한 게시글이 저장 돼 있는 로컬스토리지에서 데이터 가져오기
+  }, [userName, posts, userPw, userTitle, userContent, userData]);
 
-  const onRemove = useCallback(no => {
-    dispatch({
-      type: 'REMOVE_USER',
-      no,
-    });
+  console.log('posts', posts);
+
+  useEffect(posts => {
+    setUserData({ userData: window.localStorage.getItem('userName') });
+
+    console.log('userData', userData);
+    console.log('useEffect', posts);
   }, []);
 
-  // const navigate = useNavigate();
+  // const onRemove = useCallback(no => {
+  //   dispatch({
+  //     type: 'REMOVE_USER',
+  //     no,
+  //   });
+  // }, []);
 
   //게시버튼 클릭시 홈으로 이동후 게시물에 추가하기
-  // const handlePush = () => {
-  //   alert('저장되었습니다.');
-  //   // navigate('/');
-  //   a();
-  // };
-
-  const handlePush = () => {
-    dispatch({ type: 'CREATE_USER', posts });
-    alert('저장되었습니다.');
-    window.localStorage.setItem('userName', JSON.stringify(userValues));
-    // navigate('/');
-  };
 
   return (
     <BrowserRouter>
@@ -124,10 +123,7 @@ function App() {
               userPw={userPw}
               userTitle={userTitle}
               userContent={userContent}
-              handlePush={handlePush}
-              onCreate={onCreate}
               posts={posts}
-              handlePush={handlePush}
             />
           }
         />

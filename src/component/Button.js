@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-export const OneButton = ({ text, handleWrite }) => {
+export const OneButton = ({ text, handleWrite, userName }) => {
   return (
     <ButtonBox>
-      <Button onClick={handleWrite}>{text}</Button>
+      <Button onClick={() => handleWrite({ state: userName })}>{text}</Button>
     </ButtonBox>
   );
 };
@@ -37,7 +38,9 @@ export const TwoButton = ({
       <Button style={{ marginRight: '20px' }} onClick={handleCancel}>
         {cancelText}
       </Button>
-      <Button onClick={handlePush}>{PushText}</Button>
+      <Button type="submit" onClick={handlePush}>
+        {PushText}
+      </Button>
     </ButtonBox>
   );
 };

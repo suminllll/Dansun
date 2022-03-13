@@ -61,9 +61,9 @@ const Qna = ({
                       onClick={handleTitle}
                       style={{ textAlign: 'left', cursor: 'pointer' }}
                     >
-                      {data.title}
+                      {data.userTitle}
                     </BodyTd>
-                    <BodyTd>{data.writer}</BodyTd>
+                    <BodyTd>{data.userName}</BodyTd>
                     <BodyTd>{today}</BodyTd>
                   </tr>
                 );
@@ -76,9 +76,9 @@ const Qna = ({
                       onClick={handleTitle}
                       style={{ textAlign: 'left', cursor: 'pointer' }}
                     >
-                      {data.title}
+                      {data.userTitle}
                     </BodyTd>
-                    <BodyTd>{data.writer}</BodyTd>
+                    <BodyTd>{data.userName}</BodyTd>
                     <BodyTd>{today}</BodyTd>
                   </tr>
                 );

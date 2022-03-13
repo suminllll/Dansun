@@ -15,7 +15,6 @@ const Writing = ({
 }) => {
   const [inputData, setInputData] = useState([]); // 입력된 데이터를 갱신해줄 state
   const [check, setCheck] = useState(false); // 조건에 만족하면 true로 바꿀 state
-
   const navigate = useNavigate();
 
   //엔터를 눌러도 새로고침이 되지않는 함수
@@ -72,6 +71,7 @@ const Writing = ({
           <TwoButton
             handleCancel={handleCancel}
             handlePush={handlePush}
+            userName={userName}
             cancelText="취소"
             PushText="게시"
           />
